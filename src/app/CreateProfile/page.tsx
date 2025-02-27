@@ -15,8 +15,11 @@ interface Profile {
   github: string;
   bio: string;
 }
+interface CreateProfileProps {
+  onProfileCreated: () => void;
+}
 
-const CreateProfile = () => {
+const CreateProfile: React.FC<CreateProfileProps> = ({ onProfileCreated }) => {
   const [formData, setFormData] = useState({
     status: '',
     company: '',
@@ -26,7 +29,6 @@ const CreateProfile = () => {
     github: '',
     bio: '',
   });
-
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const router = useRouter();
@@ -76,7 +78,7 @@ const CreateProfile = () => {
       );
 
       console.log('Profile created:', response.data);
-      router.push('/dashboard');
+      router.push('/developers');
       
     } catch (err: any) {
       console.error('Profile creation error:', err.message);
@@ -199,79 +201,3 @@ const CreateProfile = () => {
 };
 
 export default CreateProfile;
-
-
-
-
-
-
-
-
-
-
-
-
-// "use client";
-
-// import { useState } from "react";
-// import { useRouter } from "next/navigation";
-
-// const CreateProfile = () => {
-//   const router = useRouter();
-
-//   const [formData, setFormData] = useState({
-//     status: "",
-//     company: "",
-//     website: "",
-//     location: "",
-//     skills: "",
-//     github: "",
-//     bio: "",
-//   });
-
-//   const [error, setError] = useState<string | null>(null);
-
-//   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-//     setFormData({ ...formData, [e.target.name]: e.target.value });
-//   };
-
-//   const handleSubmit = async (e: React.FormEvent) => {
-//     e.preventDefault();
-//     setError(null);
-
-//     try {
-//       const res = await fetch("/api/profile", {
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify(formData),
-//       });
-
-//       if (!res.ok) throw new Error("Profil yaratishda xatolik yuz berdi.");
-
-//       router.push("/dashboard");
-//     } catch (err) {
-//       setError((err as Error).message);
-//     }
-//   };
-
-//   return (
-//     <div className="max-w-lg mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
-//       <h1 className="text-2xl font-bold mb-4 text-center">Create Your Profile</h1>
-//       {error && <p className="text-red-500 text-center">{error}</p>}
-//       <form onSubmit={handleSubmit} className="space-y-4">
-//         <input type="text" name="status" placeholder="Professional Status" className="w-full p-3 border rounded" onChange={handleChange} required />
-//         <input type="text" name="company" placeholder="Company" className="w-full p-3 border rounded" onChange={handleChange} />
-//         <input type="text" name="website" placeholder="Website" className="w-full p-3 border rounded" onChange={handleChange} />
-//         <input type="text" name="location" placeholder="Location" className="w-full p-3 border rounded" onChange={handleChange} />
-//         <input type="text" name="skills" placeholder="Skills (comma separated)" className="w-full p-3 border rounded" onChange={handleChange} required />
-//         <input type="text" name="github" placeholder="Github Username" className="w-full p-3 border rounded" onChange={handleChange} />
-//         <textarea name="bio" placeholder="A short bio" className="w-full p-3 border rounded" onChange={handleChange}></textarea>
-//         <button type="submit" className="w-full bg-blue-600 text-white p-3 rounded hover:bg-blue-700">Create Profile</button>
-//       </form>
-//     </div>
-//   );
-// };
-
-// export default CreateProfile;

@@ -61,7 +61,7 @@ const EditProfile = () => {
 
         const profile = response.data;
         
-        // Formni mavjud ma'lumotlar bilan to'ldirish
+       
         setFormData({
           status: profile.status || '',
           company: profile.company || '',

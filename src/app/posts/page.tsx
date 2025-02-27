@@ -55,7 +55,7 @@ function Posts() {
         throw new Error('No token found');
       }
 
-      // Create new post
+     
       const response = await axios.post(
         `${baseUrl}api/posts`,
         { text: postText },
