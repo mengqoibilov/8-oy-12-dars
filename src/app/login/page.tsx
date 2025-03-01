@@ -25,7 +25,7 @@ function Login() {
 
       if (res.data.token) {
         Cookies.set('Token', res.data.token, { expires: 7 });
-        router.push("/CreateProfile");
+        router.push("/dashboard");
       } else {
         setError("Login muvaffaqiyatsiz bo'ldi");
       }

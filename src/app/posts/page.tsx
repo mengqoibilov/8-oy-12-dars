@@ -226,7 +226,7 @@ function Posts() {
                     <span>👎</span>
                   </button>
                   <Link 
-                    href={`/post/${post._id}`}
+                    href={`/discussion/${post._id}`}
                     className="bg-cyan-500 text-white px-4 py-1 rounded hover:bg-cyan-600"
                   >
                     Discussion {post.comments.length > 0 && `(${post.comments.length})`}
@@ -250,6 +250,12 @@ function Posts() {
 }
 
 export default Posts;
+
+
+
+
+
+
 
 
 

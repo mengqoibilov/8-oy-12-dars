@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from "react";
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -23,7 +22,10 @@ const AddExperience = () => {
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const value = e.target.type === 'checkbox' ? (e.target as HTMLInputElement).checked : e.target.value;
+    const value =
+      e.target.type === 'checkbox'
+        ? (e.target as HTMLInputElement).checked
+        : e.target.value;
     setFormData({ ...formData, [e.target.name]: value });
   };
 
@@ -39,16 +41,12 @@ const AddExperience = () => {
         return;
       }
 
-      await axios.put(
-        `${baseUrl}api/profile/experience`,
-        formData,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            'x-auth-token': token
-          }
+      await axios.put(`${baseUrl}api/profile/experience`, formData, {
+        headers: {
+          'Content-Type': 'application/json',
+          'x-auth-token': token
         }
-      );
+      });
 
       router.push('/dashboard');
     } catch (err: any) {
@@ -60,101 +58,107 @@ const AddExperience = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <div className="max-w-3xl mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
-        <h2 className="text-3xl font-bold text-teal-600">Add Experience</h2>
-        <p className="text-gray-600 mb-4">Add any developer/programming positions that you have had in the past</p>
+    <div className="min-h-screen bg-gradient-to-br from-gray-100 to-gray-200">
+      <div className="max-w-3xl mx-auto mt-16 p-8 bg-white/90 rounded-xl shadow-xl">
+        <h2 className="text-3xl font-extrabold text-blue-700">Add Experience</h2>
+        <p className="text-blue-600 mb-6">
+          Add any developer/programming positions that you have had in the past
+        </p>
 
         {error && <p className="text-red-500 mb-4">{error}</p>}
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <input 
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <input
             type="text"
             name="title"
             value={formData.title}
             onChange={handleChange}
             placeholder="* Job Title"
             required
-            className="w-full p-2 border rounded"
+            className="w-full p-3 border-2 border-blue-300 rounded focus:outline-none focus:border-blue-500"
           />
 
-          <input 
+          <input
             type="text"
             name="company"
             value={formData.company}
             onChange={handleChange}
             placeholder="* Company"
             required
-            className="w-full p-2 border rounded"
+            className="w-full p-3 border-2 border-blue-300 rounded focus:outline-none focus:border-blue-500"
           />
 
-          <input 
+          <input
             type="text"
             name="location"
             value={formData.location}
             onChange={handleChange}
             placeholder="Location"
-            className="w-full p-2 border rounded"
+            className="w-full p-3 border-2 border-blue-300 rounded focus:outline-none focus:border-blue-500"
           />
 
-          <div className="flex gap-4">
+          <div className="flex gap-6">
             <div className="flex-1">
-              <label className="block text-sm text-gray-600 mb-1">From Date</label>
-              <input 
+              <label className="block text-sm text-blue-700 mb-2">From Date</label>
+              <input
                 type="date"
                 name="from"
                 value={formData.from}
                 onChange={handleChange}
                 required
-                className="w-full p-2 border rounded"
+                className="w-full p-3 border-2 border-blue-300 rounded focus:outline-none focus:border-blue-500"
               />
             </div>
 
             <div className="flex-1">
-              <label className="block text-sm text-gray-600 mb-1">To Date</label>
-              <input 
+              <label className="block text-sm text-blue-700 mb-2">To Date</label>
+              <input
                 type="date"
                 name="to"
                 value={formData.to}
                 onChange={handleChange}
                 disabled={formData.current}
-                className="w-full p-2 border rounded"
+                className="w-full p-3 border-2 border-blue-300 rounded focus:outline-none focus:border-blue-500 disabled:bg-gray-100"
               />
             </div>
           </div>
 
-          <div className="flex items-center">
-            <input 
+          <div className="flex items-center gap-2">
+            <input
               type="checkbox"
               name="current"
               checked={formData.current}
               onChange={handleChange}
-              className="mr-2"
+              className="h-5 w-5 text-blue-600"
             />
-            <label>Current Job</label>
+            <label className="text-blue-700">Current Job</label>
           </div>
 
-          <textarea 
+          <textarea
             name="description"
             value={formData.description}
             onChange={handleChange}
             placeholder="Job Description"
-            className="w-full p-2 border rounded h-32"
+            className="w-full p-3 border-2 border-blue-300 rounded h-32 focus:outline-none focus:border-blue-500"
           ></textarea>
 
           <div className="flex gap-4">
-            <button 
+            <button
               type="submit"
-              className={`flex-1 p-2 text-white rounded ${loading ? 'bg-teal-400 cursor-not-allowed' : 'bg-teal-500 hover:bg-teal-600'}`}
+              className={`flex-1 p-3 text-white font-semibold rounded transition-colors ${
+                loading
+                  ? 'bg-blue-400 cursor-not-allowed'
+                  : 'bg-blue-500 hover:bg-blue-600'
+              }`}
               disabled={loading}
             >
               {loading ? "Adding..." : "Add Experience"}
             </button>
 
-            <Link href="/dashboard">
-              <button 
+            <Link href="/dashboard" className="flex-1">
+              <button
                 type="button"
-                className="flex-1 p-2 bg-gray-500 text-white rounded hover:bg-gray-600"
+                className="w-full p-3 bg-gray-500 text-white font-semibold rounded hover:bg-gray-600 transition-colors"
               >
                 Go Back
               </button>

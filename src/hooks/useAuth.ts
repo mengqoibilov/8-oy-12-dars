@@ -71,7 +71,7 @@ function useAuth() {
 
      
       const res = await axios.post(
-        baseUrl + "users",
+        baseUrl + "api/users",
        
         { name, email, password },
         { headers: { "Content-Type": "application/json" } }
